@@ -1,0 +1,58 @@
+﻿@page
+@model MarketData.Pages.AlphaVantage.AvSectorModel
+@{
+    ViewData["Title"] = "AvSector";
+}
+
+<h1>AvSector</h1>
+
+<br /><br />
+<form method="post">
+    <button type="submit" class="btn btn-primary" name="submit">Submit</button>          
+
+    <br /><br />
+    @if (Model != null)
+    {
+        if (Model.AvModel != null)
+        {
+            <h3>Sector Performance Data</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>CommuService</th>
+                        <th>Consumer</th>
+                        <th>Staples</th>
+                        <th>Energy</th>
+                        <th>Finacial</th>
+                        <th>Health</th>
+                        <th>Industrial</th>
+                        <th>IT</th>
+                        <th>Material</th>
+                        <th>Util</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model.AvModel)
+                    {
+                        <tr>
+                            <td> @data.Rank </td>
+                            <td> @data.CommunicationServices</td>
+                            <td> @data.ConsumerDiscretionary</td>
+                            <td> @data.ConsumerStaples</td>
+                            <td> @data.Energy</td>
+                            <td> @data.Financials </td>
+                            <td> @data.HealthCare</td>
+                            <td> @data.Industrials</td>
+                            <td> @data.InformationTechnology</td>
+                            <td> @data.Matericals</td>
+                            <td> @data.Utilities</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</form>
+
+

@@ -1,0 +1,54 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Welcome to Free Market Data APIs for Quantitative Finance with ASP.NET Core</h1>
+<br />
+<h3>This project provides example code for this book</h3>
+<h3>You can access various examples by clicking corresponding links.</h3>
+
+<ul style="list-style:none;margin-top:3em">
+    <li>
+        <h5>Chapter 1. Overview of ASP.NET Core Razor Pages</h5>
+        <ul><li>Example Core for this chapter is included in the book.</li></ul>
+    </li>
+
+    <li>
+        <h5 style="margin-top:16px">Chapter 2. Market Data from Yahoo</h5>
+        <ul>
+            <li><a href="/yahoostock">Yahoo stock data in Razor page</a></li>
+            <li><a href="/yahoostockjs">Yahoo stock data in Web API service</a></li>
+            <li><a href="/yahoooption">Option Data from Yahoo</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <h5 style="margin-top:16px">Chapter 3. Market Data from IEX</h5>
+        <ul>
+            <li><a href="/iexstock">IEX stock data</a></li>
+            <li><a href="/iexquote">Real-time stock quotes</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <h5 style="margin-top:16px">Chapter 4. Market Data from Alpha Vantage</h5>
+        <ul>
+            <li><a href="/alphavantage/avstockeod">Stock EOD data</a></li>
+            <li><a href="/alphavantage/avstockbar">Intraday stock data</a></li>
+            <li><a href="/alphavantage/avstockquote">Real-time stock quotes</a></li>
+            <li><a href="/alphavantage/avfxeod">FX EOD data</a></li>
+            <li><a href="/alphavantage/avfxbar">Intraday FX data</a></li>
+            <li><a href="/alphavantage/avsector">Sector performance data</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <h5 style="margin-top:16px">Chapter 5. Adjusted Stock Data</h5>
+        <ul>
+            <li><a href="/quandlstock">Adjusted stock data from Quandl</a></li>
+            <li><a href="/tiingostock">Adjusted stock data from Tiingo</a></li>
+        </ul>
+    </li>
+</ul>

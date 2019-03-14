@@ -1,0 +1,63 @@
+﻿@page
+@using IEXTradingDotNetCore.STOCK_CHART
+@model MarketData.Pages.IexStockModel
+@{
+    ViewData["Title"] = "IexStock";
+}
+
+<h1>IexStock</h1>
+
+<br /><br />
+<form method="post">
+    <div class="form-group">
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Ticker:</label>
+            <div class="col-4">
+                <input asp-for="IexModel.Ticker" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Range:</label>
+            <div class="col-4">
+                <select asp-for="IexModel.Range" class="form-control" asp-items="Html.GetEnumSelectList<Const_STOCK_CHART.STOCK_CHART_input_options_fields>()">                    
+                </select>
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <div class="col-2"></div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+    <h3>Stock Data</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.IexModel != null)
+                {
+                    if (Model.IexModel.StockData != null)
+                    {
+                        @foreach (var data in Model.IexModel.StockData)
+                        {
+                            <tr>
+                                <td>@data.Date.ToShortDateString()</td>
+                                <td>@data.Open</td>
+                                <td>@data.High</td>
+                                <td>@data.Low</td>
+                                <td>@data.Close</td>                                
+                                <td>@data.Volume</td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</form>

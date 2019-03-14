@@ -1,0 +1,46 @@
+﻿@page
+@model MarketData.Pages.AlphaVantage.AvStockQuoteModel
+@{
+    ViewData["Title"] = "AvStockQuote";
+}
+
+<h1>AvStockQuote</h1>
+
+<br /><br />
+<form method="post">
+    <div class="form-group">
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Ticker:</label>
+            <div class="col-4">
+                <input asp-for="AvModel.Ticker" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <div class="col-2"></div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+    @if (Model != null)
+    {
+        @if (Model.AvModel != null)
+        {
+            <h3>Stock Quote Data</h3>
+            <table class="table table-striped">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>TimeStamp</td><td> @Model.AvModel.TimeStamp</td></tr>
+                <tr><td>Open</td><td> @Model.AvModel.Open</td></tr>
+                <tr><td>High</td><td> @Model.AvModel.High</td></tr>
+                <tr><td>Low</td><td> @Model.AvModel.Low</td></tr>
+                <tr><td>Price</td><td> @Model.AvModel.Price</td></tr>
+                <tr><td>Volume</td><td> @Model.AvModel.Volume</td></tr>
+                <tr><td>PrevClose</td><td> @Model.AvModel.PrevClose</td></tr>
+                <tr><td>Change</td><td> @Model.AvModel.Change</td></tr>
+                <tr><td>ChangePercent</td><td> @Model.AvModel.ChangePercent</td></tr>
+            </table>
+        }
+    }
+</form>

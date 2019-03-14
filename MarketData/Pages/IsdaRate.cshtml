@@ -1,0 +1,86 @@
+﻿@page
+@model MarketData.Pages.IsdaRateModel
+@{
+    ViewData["Title"] = "IsdaRate";
+}
+
+<h1>IsdaRate</h1>
+
+<br /><br />
+<form method="post">
+    <div class="form-group">
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Currency:</label>
+            <div class="col-4">
+                <input asp-for="IsdaModel.Currency" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Date:</label>
+            <div class="col-4">
+                <input asp-for="IsdaModel.Date" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <div class="col-2"></div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+
+    @if (Model != null)
+    {
+        if (Model.IsdaModel != null)
+        {
+            if (Model.IsdaModel.IsdaRate != null)
+            {
+                <br />
+                <h3>ISDA Data</h3>
+
+                <p>
+                    Effective As Of Date: @Model.IsdaModel.IsdaRate.EffectiveAsOf |
+                    Snap Time: @Model.IsdaModel.IsdaRate.SnapTime |
+                    Spot Time: @Model.IsdaModel.IsdaRate.SpotDate
+                    <br />
+                    Deposit Day Count Convention: @Model.IsdaModel.IsdaRate.DepositDayCountConvention   |
+                    Swap Fixed Day Count Convention: @Model.IsdaModel.IsdaRate.SwapFixedDayCountConvention
+                    <br />
+                    Swap Floating Day CountConvention: @Model.IsdaModel.IsdaRate.SwapFloatingDayCountConvention |
+                    Swap Fixed Payment Frequency: @Model.IsdaModel.IsdaRate.SwapFixedPaymentFrequency <br />
+                    Swap Floating Payment Frequency: @Model.IsdaModel.IsdaRate.SwapFloatingPaymentFrequency
+                </p>
+
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr><th>Rate Type</th><th>Tenor</th><th>Rate</th><th>Maturity</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model.IsdaModel.IsdaRate.DepositRates)
+                        {
+                            <tr>
+                                <td>Deposite</td>
+                                <td>@data.Tenor</td>
+                                <td>@data.Rate</td>
+                                <td>@data.Maturity</td>
+                            </tr>
+                        }
+                        @foreach (var data in Model.IsdaModel.IsdaRate.SwapRates)
+                        {
+                            <tr>
+                                <td>Swap</td>
+                                <td>@data.Tenor</td>
+                                <td>@data.Rate</td>
+                                <td>@data.Maturity</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+        }
+    }
+</form>
+

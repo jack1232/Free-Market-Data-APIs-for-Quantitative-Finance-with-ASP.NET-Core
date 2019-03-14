@@ -1,0 +1,92 @@
+﻿@page
+@model MarketData.Pages.YahooOptionModel
+@{
+    ViewData["Title"] = "YahooOption";
+}
+
+<h1>YahooOption</h1>
+
+<br /><br />
+<form method="post">
+    <div class="form-group">
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Ticker:</label>
+            <div class="col-4">
+                <input asp-for="YahooModel.Ticker" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Expiration:</label>
+            <div class="col-4">
+                <select asp-for="YahooModel.Expiration" class="form-control" asp-items="@Model.YahooModel.Expirations"></select>
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Option Type:</label>
+            <div class="col-4">
+                <select asp-for="YahooModel.OptionType" class="form-control">
+                    <option value="Call">Call</option>
+                    <option value="Put">Put</option>
+                </select>
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <div class="col-2"></div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        if (Model.YahooModel != null)
+        {
+            if (Model.YahooModel.OptionResult != null)
+            {
+                var options = Model.YahooModel.OptionResult.CallOptions;
+                if (Model.YahooModel.OptionType == "Put")
+                {
+                    options = Model.YahooModel.OptionResult.PutOptions;
+                }
+                <br />
+                <h3>Options Data</h3>
+                <p>
+                    Market Time: @Model.YahooModel.OptionResult.StockData.Date.ToShortDateString(),
+                    Underlying Asset:
+                    Open = @Model.YahooModel.OptionResult.StockData.Open,
+                    High = @Model.YahooModel.OptionResult.StockData.High,
+                    Low = @Model.YahooModel.OptionResult.StockData.Low,
+                    Close = @Model.YahooModel.OptionResult.StockData.Close,
+                    Volume = @Model.YahooModel.OptionResult.StockData.Volume
+                </p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr><th>ContractSymbol</th><th>Strike</th><th>Price</th><th>Change</th><th>Volume</th><th>OpenInterest</th>
+                        <th>Bid</th><th>Ask</th><th>LastTradeDate</th><th>ImpliedVol</th><th>ITM</th></tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var data in options)
+                        {
+                            <tr>
+                                <td>@data.ContractSymbol</td>
+                                <td>@data.Strike</td>
+                                <td>@data.LastPrice</td>
+                                <td>@data.Change</td>
+                                <td>@data.Volume</td>
+                                <td>@data.OpenInterest</td>
+                                <td>@data.Bid</td>
+                                <td>@data.Ask</td>
+                                <td>@data.LastTradeDate</td>
+                                <td>@Math.Round(data.ImpliedVol, 4)</td>
+                                <td>@data.InTheMoneny</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+        }
+    }
+</form>

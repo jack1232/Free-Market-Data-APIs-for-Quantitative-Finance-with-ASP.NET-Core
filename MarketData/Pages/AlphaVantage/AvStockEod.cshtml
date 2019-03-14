@@ -1,0 +1,78 @@
+﻿@page
+@model MarketData.Pages.AlphaVantage.AvStockEodModel
+@{
+    ViewData["Title"] = "AvStockEod";
+}
+
+<h1>AvStockEod</h1>
+
+<br /><br />
+<form method="post">
+    <div class="form-group">
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Ticker:</label>
+            <div class="col-4">
+                <input asp-for="AvModel.Ticker" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Start Date:</label>
+            <div class="col-4">
+                <input asp-for="AvModel.StartDate" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">End Date:</label>
+            <div class="col-4">
+                <input asp-for="AvModel.EndDate" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Period:</label>
+            <div class="col-4">
+                <select asp-for="AvModel.Period" class="form-control" placeholder="Select a period">
+                    <option value="daily">daily</option>
+                    <option value="weekly">weekly</option>
+                    <option value="monthly">monthly</option>
+                </select>
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <div class="col-2"></div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+    <h3>Stock Data</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>CloseAdj</th><th>Volume</th></tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.AvModel != null)
+                {
+                    if (Model.AvModel.StockData != null)
+                    {
+                        @foreach (var data in Model.AvModel.StockData)
+                        {
+                            <tr>
+                                <td>@data.Date.ToShortDateString()</td>
+                                <td>@data.Open</td>
+                                <td>@data.High</td>
+                                <td>@data.Low</td>
+                                <td>@data.Close</td>
+                                <td>@data.CloseAdj</td>
+                                <td>@data.Volume</td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</form>

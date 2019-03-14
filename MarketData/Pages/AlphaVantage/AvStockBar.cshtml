@@ -1,0 +1,68 @@
+﻿@page
+@model MarketData.Pages.AlphaVantage.AvStockBarModel
+@{
+    ViewData["Title"] = "AvStockBar";
+}
+
+<h1>AvStockBar</h1>
+
+<br /><br />
+<form method="post">
+    <div class="form-group">
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Ticker:</label>
+            <div class="col-4">
+                <input asp-for="AvModel.Ticker" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Interval:</label>
+            <div class="col-4">
+                <input asp-for="AvModel.Interval" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Output Size:</label>
+            <div class="col-4">
+                <input asp-for="AvModel.Outputsize" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <div class="col-2"></div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+    <h3>Stock Data</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.AvModel != null)
+                {
+                    if (Model.AvModel.StockData != null)
+                    {
+                        @foreach (var data in Model.AvModel.StockData)
+                        {
+                            <tr>
+                                <td>@data.Date</td>
+                                <td>@data.Open</td>
+                                <td>@data.High</td>
+                                <td>@data.Low</td>
+                                <td>@data.Close</td>                                
+                                <td>@data.Volume</td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</form>
+

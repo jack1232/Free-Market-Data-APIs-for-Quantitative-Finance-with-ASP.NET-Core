@@ -1,0 +1,89 @@
+﻿@page
+@model MarketData.Pages.QuandlStockModel
+@{
+    ViewData["Title"] = "QuandlStock";
+}
+
+<h1>QuandlStock</h1>
+
+<br /><br />
+<form method="post">
+    <div class="form-group">
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Ticker:</label>
+            <div class="col-4">
+                <input asp-for="QuandlModel.Ticker" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">Start Date:</label>
+            <div class="col-4">
+                <input asp-for="QuandlModel.StartDate" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <label class="col-2 control-label">End Date:</label>
+            <div class="col-4">
+                <input asp-for="QuandlModel.EndDate" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group form-inline">
+            <div class="col-2"></div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+    <h3>Stock Data</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+                <th>AdjOpen</th>
+                <th>AdjHigh</th>
+                <th>AdjLow</th>
+                <th>AdjClose</th>
+                <th>AdjVolume</th>
+                <th>DivCash</th>
+                <th>SplitFactor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.QuandlModel != null)
+                {
+                    if (Model.QuandlModel.StockData != null)
+                    {
+                        @foreach (var data in Model.QuandlModel.StockData)
+                        {
+                            <tr>
+                                <td>@data.Date.ToShortDateString()</td>
+                                <td>@data.Open</td>
+                                <td>@data.High</td>
+                                <td>@data.Low</td>
+                                <td>@data.Close</td>
+                                <td>@data.Volume</td>
+                                <td>@Math.Round(data.AdjOpen, 3)</td>                                
+                                <td>@Math.Round(data.AdjHigh, 3)</td>
+                                <td>@Math.Round(data.AdjLow, 3)</td>
+                                <td>@Math.Round(data.AdjClose, 3)</td>
+                                <td>@data.AdjVolume</td>
+                                <td>@data.DivCash</td>
+                                <td>@data.SplitFactor</td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</form>
+
